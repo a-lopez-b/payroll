@@ -1,0 +1,22 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+andres:
+  id: 1
+  code: 1
+  first_name: Andres
+  last_name: Lopez Barboza
+  ssn: 00214258961
+  tax_id: LOBA881031HK9
+  payment_period: Q
+  job: Developer
+  active: 1
+
+two:
+  id: 2
+  code: 1
+  first_name: MyString
+  last_name: MyString
+  ssn: MyString
+  tax_id: MyString
+  payment_period: MyString
+  job: MyString
+  active: 1

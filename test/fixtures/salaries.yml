@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_id: 1
+  date: 2022-01-01
+  salary_type: 'A'
+  sdn: 570.50
+  sdi: 592.25
+
+two:
+  employee_id: 2
+  date: 2022-02-06
+  salary_type: 'A'
+  sdn: 9.99
+  sdi: 9.99

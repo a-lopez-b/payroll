@@ -1,0 +1,145 @@
+  [1m[35m (8.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mPayrollPeriod Load (0.4ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" ORDER BY "payroll_periods"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mEmployee Load (0.3ms)[0m  [1m[34mSELECT "employees"."id" FROM "employees"[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mPayrollPeriod Load (2.2ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" ORDER BY "payroll_periods"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mEmployee Load (0.2ms)[0m  [1m[34mSELECT "employees"."id" FROM "employees"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayrollPeriod Load (0.6ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.3ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPayroll Create (1.9ms)[0m  [1m[32mINSERT INTO "payrolls" ("tax_amount", "ssn_amount", "net_amount", "status", "employee_id", "payroll_period_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tax_amount", 0.0], ["ssn_amount", "[FILTERED]"], ["net_amount", 0.0], ["status", 1], ["employee_id", 1], ["payroll_period_id", 1], ["created_at", "2022-02-16 14:02:14.987399"], ["updated_at", "2022-02-16 14:02:14.987399"]]
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mConcept Load (0.5ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 1) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mSalary Load (1.0ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE (employee_id = 1 and date <= '2022-02-15') ORDER BY date desc LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (0.4ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.1ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (2.3ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 15.0], ["concept_type", 1], ["taxed", 27000.0], ["exempt", 0.0], ["retention", 0.0], ["payroll_id", 2], ["concept_id", 2], ["created_at", "2022-02-16 14:02:15.131154"], ["updated_at", "2022-02-16 14:02:15.131154"]]
+  [1m[36mPayrollDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 2)[0m
+  [1m[36mPayrollPeriod Load (0.1ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (1.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPayroll Update (0.4ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 27000.0], ["updated_at", "2022-02-16 14:02:15.178618"], ["id", 2]]
+  [1m[36mPayrollDetail Sum (0.7ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 2 and concepts.code = 10)[0m
+  [1m[36mPayrollDetail Sum (1.6ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 2 and concepts.code = 11)[0m
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mConcept Load (0.5ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 11) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (0.4ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.1ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (2.0ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 1.0], ["concept_type", 2], ["taxed", 0.0], ["exempt", 0.0], ["retention", 42.37], ["payroll_id", 2], ["concept_id", 12], ["created_at", "2022-02-16 14:02:15.219819"], ["updated_at", "2022-02-16 14:02:15.219819"]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 2)[0m
+  [1m[36mPayrollPeriod Load (0.1ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.2ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPayroll Update (0.9ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 26957.63], ["updated_at", "2022-02-16 14:02:15.237613"], ["id", 2]]
+  [1m[36mPayrollDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 2 and concepts.code = 10)[0m
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 2 and concepts.code = 11)[0m
+  [1m[36mPayroll Update (0.2ms)[0m  [1m[33mUPDATE "payrolls" SET "ssn_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["ssn_amount", "[FILTERED]"], ["updated_at", "2022-02-16 14:02:15.249465"], ["id", 2]]
+  [1m[36mTRANSACTION (5.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPayrollDetail Sum (0.6ms)[0m  [1m[34mSELECT SUM("payroll_details"."taxed") FROM "payroll_details" INNER JOIN "payrolls" ON "payrolls"."id" = "payroll_details"."payroll_id" INNER JOIN "payroll_periods" ON "payroll_periods"."id" = "payrolls"."payroll_period_id" WHERE (payroll_periods.year = 2022 and payroll_periods.month = 2 and payrolls.employee_id = 1)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mPayrollPeriod Load (0.2ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" ORDER BY "payroll_periods"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mEmployee Load (0.4ms)[0m  [1m[34mSELECT "employees"."id" FROM "employees"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayrollPeriod Load (0.5ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.5ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPayroll Create (2.5ms)[0m  [1m[32mINSERT INTO "payrolls" ("tax_amount", "ssn_amount", "net_amount", "status", "employee_id", "payroll_period_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tax_amount", 0.0], ["ssn_amount", "[FILTERED]"], ["net_amount", 0.0], ["status", 1], ["employee_id", 1], ["payroll_period_id", 1], ["created_at", "2022-02-16 14:03:36.551755"], ["updated_at", "2022-02-16 14:03:36.551755"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mConcept Load (0.6ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 1) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mSalary Load (0.6ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE (employee_id = 1 and date <= '2022-02-15') ORDER BY date desc LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (0.5ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.2ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (2.1ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 15.0], ["concept_type", 1], ["taxed", 27000.0], ["exempt", 0.0], ["retention", 0.0], ["payroll_id", 3], ["concept_id", 2], ["created_at", "2022-02-16 14:03:36.621208"], ["updated_at", "2022-02-16 14:03:36.621208"]]
+  [1m[36mPayrollDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 3)[0m
+  [1m[36mPayrollPeriod Load (0.1ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPayroll Update (0.3ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 27000.0], ["updated_at", "2022-02-16 14:03:36.639255"], ["id", 3]]
+  [1m[36mPayrollDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 3 and concepts.code = 10)[0m
+  [1m[36mPayrollDetail Sum (0.8ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 3 and concepts.code = 11)[0m
+  [1m[36mTRANSACTION (5.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mConcept Load (0.5ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 11) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (0.7ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.1ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (1.6ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 1.0], ["concept_type", 2], ["taxed", 0.0], ["exempt", 0.0], ["retention", 42.37], ["payroll_id", 3], ["concept_id", 12], ["created_at", "2022-02-16 14:03:36.672516"], ["updated_at", "2022-02-16 14:03:36.672516"]]
+  [1m[36mPayrollDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 3)[0m
+  [1m[36mPayrollPeriod Load (0.1ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPayroll Update (0.3ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 26957.63], ["updated_at", "2022-02-16 14:03:36.686430"], ["id", 3]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 3 and concepts.code = 10)[0m
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 3 and concepts.code = 11)[0m
+  [1m[36mPayroll Update (0.2ms)[0m  [1m[33mUPDATE "payrolls" SET "ssn_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["ssn_amount", "[FILTERED]"], ["updated_at", "2022-02-16 14:03:36.696702"], ["id", 3]]
+  [1m[36mTRANSACTION (5.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPayrollDetail Sum (0.8ms)[0m  [1m[34mSELECT SUM("payroll_details"."taxed") FROM "payroll_details" INNER JOIN "payrolls" ON "payrolls"."id" = "payroll_details"."payroll_id" INNER JOIN "payroll_periods" ON "payroll_periods"."id" = "payrolls"."payroll_period_id" WHERE (payroll_periods.year = 2022 and payroll_periods.month = 2 and payrolls.employee_id = 1)[0m
+  [1m[36mConcept Load (0.4ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 10) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (0.4ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.1ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (1.3ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 1.0], ["concept_type", 2], ["taxed", 0.0], ["exempt", 0.0], ["retention", 23311.178684210525], ["payroll_id", 3], ["concept_id", 11], ["created_at", "2022-02-16 14:03:36.778400"], ["updated_at", "2022-02-16 14:03:36.778400"]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 3)[0m
+  [1m[36mPayrollPeriod Load (0.1ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mPayroll Update (0.3ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 3646.45131578948], ["updated_at", "2022-02-16 14:03:36.790043"], ["id", 3]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 3 and concepts.code = 10)[0m
+  [1m[36mPayroll Update (0.1ms)[0m  [1m[33mUPDATE "payrolls" SET "tax_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["tax_amount", 23311.1786842105], ["updated_at", "2022-02-16 14:03:36.796564"], ["id", 3]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 3 and concepts.code = 11)[0m
+  [1m[36mTRANSACTION (15.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPayroll Sum (0.4ms)[0m  [1m[34mSELECT SUM("payrolls"."net_amount") FROM "payrolls" WHERE (payrolls.payroll_period_id = 1)[0m
+  [1m[36mPayroll Sum (0.6ms)[0m  [1m[34mSELECT SUM("payrolls"."tax_amount") FROM "payrolls" WHERE (payrolls.payroll_period_id = 1)[0m
+  [1m[36mPayroll Sum (0.6ms)[0m  [1m[34mSELECT SUM("payrolls"."ssn_amount") FROM "payrolls" WHERE (payrolls.payroll_period_id = 1)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayrollPeriod Update (2.1ms)[0m  [1m[33mUPDATE "payroll_periods" SET "tax_amount" = ?, "ssn_amount" = ?, "net_amount" = ?, "updated_at" = ? WHERE "payroll_periods"."id" = ?[0m  [["tax_amount", 23311.18], ["ssn_amount", "[FILTERED]"], ["net_amount", 30604.08], ["updated_at", "2022-02-16 14:03:36.836953"], ["id", 1]]
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPayroll Load (0.4ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayrollPeriod Load (0.6ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPayroll Create (1.7ms)[0m  [1m[32mINSERT INTO "payrolls" ("tax_amount", "ssn_amount", "net_amount", "status", "employee_id", "payroll_period_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["tax_amount", 0.0], ["ssn_amount", "[FILTERED]"], ["net_amount", 0.0], ["status", 1], ["employee_id", 2], ["payroll_period_id", 1], ["created_at", "2022-02-16 14:03:36.868615"], ["updated_at", "2022-02-16 14:03:36.868615"]]
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mConcept Load (0.5ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 1) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mSalary Load (0.6ms)[0m  [1m[34mSELECT "salaries".* FROM "salaries" WHERE (employee_id = 2 and date <= '2022-02-15') ORDER BY date desc LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (0.4ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.1ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (1.7ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 15.0], ["concept_type", 1], ["taxed", 9750.0], ["exempt", 0.0], ["retention", 0.0], ["payroll_id", 4], ["concept_id", 2], ["created_at", "2022-02-16 14:03:36.891246"], ["updated_at", "2022-02-16 14:03:36.891246"]]
+  [1m[36mPayrollDetail Sum (5.8ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 4)[0m
+  [1m[36mPayrollPeriod Load (0.1ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPayroll Update (1.8ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 9750.0], ["updated_at", "2022-02-16 14:03:36.938047"], ["id", 4]]
+  [1m[36mPayrollDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 4 and concepts.code = 10)[0m
+  [1m[36mPayrollDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 4 and concepts.code = 11)[0m
+  [1m[36mTRANSACTION (7.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mConcept Load (1.0ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 11) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (7.7ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.1ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (2.6ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 1.0], ["concept_type", 2], ["taxed", 0.0], ["exempt", 0.0], ["retention", 42.37], ["payroll_id", 4], ["concept_id", 12], ["created_at", "2022-02-16 14:03:37.014559"], ["updated_at", "2022-02-16 14:03:37.014559"]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 4)[0m
+  [1m[36mPayrollPeriod Load (0.3ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPayroll Update (0.4ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 9707.63], ["updated_at", "2022-02-16 14:03:37.039388"], ["id", 4]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 4 and concepts.code = 10)[0m
+  [1m[36mPayrollDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 4 and concepts.code = 11)[0m
+  [1m[36mPayroll Update (0.2ms)[0m  [1m[33mUPDATE "payrolls" SET "ssn_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["ssn_amount", "[FILTERED]"], ["updated_at", "2022-02-16 14:03:37.047406"], ["id", 4]]
+  [1m[36mTRANSACTION (4.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPayrollDetail Sum (0.6ms)[0m  [1m[34mSELECT SUM("payroll_details"."taxed") FROM "payroll_details" INNER JOIN "payrolls" ON "payrolls"."id" = "payroll_details"."payroll_id" INNER JOIN "payroll_periods" ON "payroll_periods"."id" = "payrolls"."payroll_period_id" WHERE (payroll_periods.year = 2022 and payroll_periods.month = 2 and payrolls.employee_id = 2)[0m
+  [1m[36mConcept Load (0.5ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE (code = 10) ORDER BY "concepts"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayroll Load (0.4ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mConcept Load (0.1ms)[0m  [1m[34mSELECT "concepts".* FROM "concepts" WHERE "concepts"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[36mPayrollDetail Create (1.7ms)[0m  [1m[32mINSERT INTO "payroll_details" ("quantity", "concept_type", "taxed", "exempt", "retention", "payroll_id", "concept_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["quantity", 1.0], ["concept_type", 2], ["taxed", 0.0], ["exempt", 0.0], ["retention", 1371.4992789473683], ["payroll_id", 4], ["concept_id", 11], ["created_at", "2022-02-16 14:03:37.069803"], ["updated_at", "2022-02-16 14:03:37.069803"]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM(payroll_details.taxed + payroll_details.exempt - payroll_details.retention) FROM "payroll_details" WHERE (payroll_id = 4)[0m
+  [1m[36mPayrollPeriod Load (0.1ms)[0m  [1m[34mSELECT "payroll_periods".* FROM "payroll_periods" WHERE "payroll_periods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEmployee Load (0.1ms)[0m  [1m[34mSELECT "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mPayroll Update (0.2ms)[0m  [1m[33mUPDATE "payrolls" SET "net_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["net_amount", 8336.13072105263], ["updated_at", "2022-02-16 14:03:37.080281"], ["id", 4]]
+  [1m[36mPayrollDetail Sum (0.8ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 4 and concepts.code = 10)[0m
+  [1m[36mPayroll Update (0.2ms)[0m  [1m[33mUPDATE "payrolls" SET "tax_amount" = ?, "updated_at" = ? WHERE "payrolls"."id" = ?[0m  [["tax_amount", 1371.49927894737], ["updated_at", "2022-02-16 14:03:37.088380"], ["id", 4]]
+  [1m[36mPayrollDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("payroll_details"."retention") FROM "payroll_details" INNER JOIN "concepts" ON "concepts"."id" = "payroll_details"."concept_id" WHERE (payroll_id = 4 and concepts.code = 11)[0m
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPayroll Sum (1.6ms)[0m  [1m[34mSELECT SUM("payrolls"."net_amount") FROM "payrolls" WHERE (payrolls.payroll_period_id = 1)[0m
+  [1m[36mPayroll Sum (0.5ms)[0m  [1m[34mSELECT SUM("payrolls"."tax_amount") FROM "payrolls" WHERE (payrolls.payroll_period_id = 1)[0m
+  [1m[36mPayroll Sum (0.4ms)[0m  [1m[34mSELECT SUM("payrolls"."ssn_amount") FROM "payrolls" WHERE (payrolls.payroll_period_id = 1)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPayrollPeriod Update (2.1ms)[0m  [1m[33mUPDATE "payroll_periods" SET "net_amount" = ?, "tax_amount" = ?, "ssn_amount" = ?, "updated_at" = ? WHERE "payroll_periods"."id" = ?[0m  [["net_amount", 38940.21], ["tax_amount", 24682.68], ["ssn_amount", "[FILTERED]"], ["updated_at", "2022-02-16 14:03:37.110704"], ["id", 1]]
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPayroll Load (0.4ms)[0m  [1m[34mSELECT "payrolls".* FROM "payrolls" WHERE "payrolls"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]

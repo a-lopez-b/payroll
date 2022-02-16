@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+februaryfirst:
+  id: 1
+  year: 2022
+  month: 2
+  consecutive: 1
+  start_date: 2022-02-01
+  end_date: 2022-02-15
+  payroll_period: Q
+  tax_amount: 0
+  ssn_amount: 0
+  net_amount: 0
+  status: 0
+  application_status: 0
+  active: true
+
+
+two:
+  id: 2
+  year: 2022
+  month: 2
+  consecutive: 2
+  start_date: 2022-02-16
+  end_date: 2022-02-28
+  payroll_period: Q
+  tax_amount: 0
+  ssn_amount: 0
+  net_amount: 0
+  status: 0
+  application_status: 0
+  active: true
